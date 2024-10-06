@@ -1,6 +1,8 @@
 package Test_Koneksi;
 
 import com.mysql.jdbc.Driver;
+
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,19 +17,25 @@ public class Latihan2 {
             DriverManager.registerDriver(myDriver);
             System.out.println("Proses Deteksi Driver Berhasil");
             
-            final java.sql.Connection tersambung = DriverManager.getConnection(DBUrl, "root", " ");
+            TestKonek = DriverManager.getConnection(DBUrl, "root", "");
             System.out.println("Koneksi Database Berhasil");
         }
         
         catch(final SQLException ex){
-            System.out.println("Koneksi Database Gagal");
+            System.out.println("Koneksi Database Gagal : " + ex);
         } return TestKonek;
     }
     
     public static void main(String args[]){
-    }
-
-    void setVisible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            Connection conn = DBKonek();
+            if (conn != null){
+                System.out.println("Koneksi berhasil dipakai");
+            } else {
+                System.out.println("Koneksi gagal digunakan");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

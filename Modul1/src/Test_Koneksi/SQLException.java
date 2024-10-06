@@ -8,6 +8,6 @@ package Test_Koneksi;
  *
  * @author PC 1
  */
-class SQLException {
+class SQLException extends Throwable {
     
 }
