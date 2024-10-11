@@ -1,5 +1,6 @@
 package AppDB;
 
+import java.security.spec.ECField;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -51,13 +52,42 @@ public class MahasiswaManager {
     public int Insert(Mahasiswa Mhs){
         int result = 0;
         try {
-            result = statm.executeUpdate("insert into tabelmahasiswa value ('" + Mhs.getNoBp() +
+            result = statm.executeUpdate("insert into tabelmahasiswa values ('" + Mhs.getNoBp() +
                     "', '" + Mhs.getNama() + "', '" + Mhs.getTmpLahir() + "', '" + Mhs.getTglLahir() +
-                    "', '" + Mhs.getAlamat() + "', '" + Mhs.getPhone() + "', '" + Mhs.getAsalSekolah() + "')")
-        } catch (Exception e){
+                    "', '" + Mhs.getAlamat() + "', '" + Mhs.getPhone() + "', '" + Mhs.getAsalSekolah() + "')");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return result;
+    }
+    public int Delete(Mahasiswa Mhs){
+        int result = 0;
+        try{
+            result = statm.executeUpdate("delete from tabelmahasiswa where NoBP = '" + Mhs.getNoBp()+"'");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public int Update(Mahasiswa Mhs){
+        int result = 0;
+        try{
+            result = statm.executeUpdate("update tabelmahasiswa set NoBp ="+ Mhs.getNoBp() +
+                    "', Nama ='" + Mhs.getNama() + "', TempatLahir = '" + Mhs.getTmpLahir() + "', Tanggalahir ='" + Mhs.getTglLahir() +
+                    "', Alamat = '" + Mhs.getAlamat() + "', NoTelp = '" + Mhs.getPhone() + "', AsalSekolah = '" + Mhs.getAsalSekolah() + "')");
+        } catch (Exception e){
+            e.printStackTrace();
+        } return result;
+    }
+
+    public void closeConnection(){
+        try{
+            conn.close();
+            statm.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

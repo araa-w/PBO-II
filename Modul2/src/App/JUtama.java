@@ -1,6 +1,13 @@
 package App;
-public class JUtama extends javax.swing.JFrame {
 
+import AppDB.Mahasiswa;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class JUtama extends javax.swing.JFrame {
+    List<Mahasiswa> Mahasiswa = new ArrayList<Mahasiswa>();
+    int currentRow = 0;
     public JUtama() {
         initComponents();
     }

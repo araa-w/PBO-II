@@ -12,7 +12,10 @@ public class Mahasiswa {
     public Mahasiswa(){
     
     }
-    
+
+    public static void add(Mahasiswa mhs) {
+    }
+
     public String getAsalSekolah(){
         return AsalSklh;
     }
