@@ -1,19 +1,200 @@
 package App;
 
 import AppDB.Mahasiswa;
+import AppDB.MahasiswaManager;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JUtama extends javax.swing.JFrame {
     List<Mahasiswa> Mahasiswa = new ArrayList<Mahasiswa>();
     int currentRow = 0;
+
+
     public JUtama() {
         initComponents();
+
+        String lookAndFeel = javax.swing.UIManager.getSystemLookAndFeelClassName();
+        try {
+            javax.swing.UIManager.setLookAndFeel(lookAndFeel);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        loadData();
+        binData();
+        this.setTitle("Data Mahasiswa");
+        this.setLocationRelativeTo(this);
+
+        
     }
+    private void loadData(){
+        MahasiswaManager MhsMgr = new MahasiswaManager();
+        Mahasiswa = MhsMgr.getMahasiswa();
+        MhsMgr.closeConnection();
+    }
+
+    private void binData(){
+        if (!Mahasiswa.isEmpty()){
+            Mahasiswa Mhs = Mahasiswa.get(currentRow);
+            tfNobp.setText(Mhs.getNoBp());
+            tfNama.setText(Mhs.getNama());
+            tfTmpLahir.setText(Mhs.getTmpLahir());
+            tfTglLahir.setText(Mhs.getTglLahir());
+            taAlamat.setText(Mhs.getAlamat());
+            tfNotelp.setText(Mhs.getPhone());
+            tfAsalsek.setText(Mhs.getAsalSekolah());
+        }
+    }
+
+    private void getValue(){
+        MahasiswaManager MhsMgr = new MahasiswaManager();
+        Mahasiswa Mhs = new Mahasiswa();
+        Mhs.setNoBp(tfNobp.getText());
+        Mhs.setNama(tfNama.getText());
+        Mhs.setTmpLahir(tfTmpLahir.getText());
+        Mhs.setTglLahir(tfTglLahir.getText());
+        Mhs.setAlamat(taAlamat.getText());
+        Mhs.setPhone(tfNotelp.getText());
+        Mhs.setAsalSekolah(tfNobp.getText());
+    }
+
+    private void setTextNama(){
+        tfNama.setText("Nama Lengkap");
+        //Menambahkan Hint Text
+        tfNama.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (tfNama.getText().equals("Nama Lengkap")){
+                    tfNama.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (tfNama.getText().equals("")){
+                    tfNama.setText("Nama Lengkap");
+                }
+            }
+        });
+    }
+    private void setTextNoBP(){
+        tfNobp.setText("Input No Bp");
+        tfNobp.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if(tfNobp.getText().equals("Input No Bp")){
+                    tfNobp.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(tfNobp.getText().equals("")){
+                    tfNobp.setText("Input No Bp");
+                }
+            }
+        });
+    }
+    private void setTextTmpLahir(){
+        tfTmpLahir.setText("ex : Padang");
+        tfTmpLahir.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (tfTmpLahir.getText().equals("ex : Padang")){
+                    tfTmpLahir.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (tfTmpLahir.getText().equals("")){
+                    tfTmpLahir.setText("ex : Padang");
+                }
+            }
+        });
+    }
+    private void setTextAsalSek(){
+        tfAsalsek.setText("Asal Sekolah");
+        tfAsalsek.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (tfAsalsek.getText().equals("Asal Sekolah")){
+                    tfAsalsek.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (tfAsalsek.getText().equals("")){
+                    tfAsalsek.setText("Asal Sekolah");
+                }
+            }
+        });
+    }
+    private void setTextNoTelp(){
+        tfNotelp.setText("08xxxxxxxxxx");
+        tfNotelp.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (tfNotelp.getText().equals("08xxxxxxxxxx")){
+                    tfNotelp.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (tfNotelp.getText().equals("")){
+                    tfNotelp.setText("08xxxxxxxxxx");
+                }
+            }
+        });
+    }
+    private void setTextTgLahir(){
+        tfTglLahir.setText("hh/bb/tt");
+        tfTglLahir.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (tfTglLahir.getText().equals("hh/bb/tt")){
+                    tfTglLahir.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (tfTglLahir.getText().equals("")){
+                    tfTglLahir.setText("hh/bb/tt");
+                }
+            }
+        });
+    }
+    private void setTextAlamat(){
+        taAlamat.setText(".....");
+        taAlamat.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (taAlamat.getText().equals(".....")){
+                    taAlamat.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (taAlamat.getText().equals("")){
+                    taAlamat.setText(".....");
+                }
+            }
+        });
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    public void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -23,18 +204,18 @@ public class JUtama extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        taAlamat = new javax.swing.JTextArea();
+        tfNobp = new javax.swing.JTextField();
+        tfNama = new javax.swing.JTextField();
+        tfTmpLahir = new javax.swing.JTextField();
+        tfTglLahir = new javax.swing.JTextField();
+        tfNotelp = new javax.swing.JTextField();
+        tfAsalsek = new javax.swing.JTextField();
+        btnNew = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnPrev = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,54 +234,140 @@ public class JUtama extends javax.swing.JFrame {
 
         jLabel6.setText("Asal Sekolah");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        taAlamat.setColumns(20);
+        taAlamat.setRows(10);
+        jScrollPane1.setViewportView(taAlamat);
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tfNobp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tfNobpActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setText("jTextField3");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        tfTmpLahir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                tfTmpLahirActionPerformed(evt);
             }
         });
 
-        jTextField4.setText("jTextField4");
+        btnNew.setText("Baru");
+        btnNew.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MahasiswaManager MhsMgr = new MahasiswaManager();
+                Mahasiswa Mhs = new Mahasiswa();
+                if (btnNew.getText().equals("Baru")){
+                    //Logika untuk memulai input baru
+                    tfNobp.requestFocus();
+                    setTextNoBP();
+                    setTextNama();
+                    setTextTmpLahir();
+                    setTextTgLahir();
+                    setTextNoTelp();
+                    setTextAsalSek();
 
-        jTextField5.setText("jTextField5");
+                    btnNew.setText("Simpan");
+                    btnDelete.setText("Hapus");
+                    btnDelete.setEnabled(true);
+                    btnEdit.setEnabled(false);
+                    btnNext.setEnabled(false);
+                    btnPrev.setEnabled(false);
+                } else if (btnNew.getText().equals("Simpan")) {
 
-        jTextField6.setText("jTextField6");
+                    //Logika untuk menyimpan data
+                    if (!tfNobp.getText().equals("") && !tfNama.getText().equals("")){
+                        Mhs.setNoBp(tfNobp.getText());
+                        Mhs.setNama(tfNama.getText());
+                        Mhs.setTmpLahir(tfTmpLahir.getText());
+                        Mhs.setTglLahir(tfTglLahir.getText());
+                        Mhs.setAlamat(taAlamat.getText());
+                        Mhs.setPhone(tfNotelp.getText());
+                        Mhs.setAsalSekolah(tfAsalsek.getText());
 
-        jButton1.setText("Baru");
+                        int result = MhsMgr.Insert(Mhs);
+                        System.out.println("Return value from insert : " + result);
 
-        jButton2.setText("Edit");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                        if (result > 0){
+                            JOptionPane.showMessageDialog(null,"Data Baru Berhasil Disimpan","Informasi",JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Data Baru Gagal Disimpan","Informasi",JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        resetForm();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null,"Harap isi semua data yang diperlukan","Informasi",JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
 
-        jButton3.setText("Hapus");
-
-        jButton4.setText("<<");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnEditActionPerformed(evt);
+                resetForm();
             }
         });
 
-        jButton5.setText(">>");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setText("Hapus");
+        btnDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (btnDelete.getText().equals("Hapuss")){
+                    int dialogResult = JOptionPane.showConfirmDialog(null,"Apakah Anda Yakin Menghapus Data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+                    if (dialogResult == JOptionPane.YES_OPTION){
+                        MahasiswaManager MhsMgr = new MahasiswaManager();
+                        Mahasiswa Mhs = Mahasiswa.get(currentRow);
+                        if (MhsMgr.Delete(Mhs)>0){
+                            loadData();
+                            currentRow = currentRow - 1;
+                            binData();
+                            JOptionPane.showMessageDialog(null,"Data Berhasil Dihapus!","Informasi",JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Data Gagal Dihapus!","Informasi",JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                } else if (btnDelete.getText().equals("Batal")){
+                    loadData();
+                    binData();
+                    btnNew.setText("Baru");
+                    btnEdit.setText("Ubah");
+                    btnDelete.setText("Hapus");
+
+                    btnEdit.setEnabled(true);
+                    btnNext.setEnabled(true);
+                    btnPrev.setEnabled(true);
+                }
+                resetForm();
+            }
+        });
+
+
+        btnPrev.setText("<<");
+        btnPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                if (currentRow < Mahasiswa.size() -1){
+                    ++currentRow;
+                    btnNext.setEnabled(true);
+                }else {
+                    btnPrev.setEnabled(false);
+                }
+                btnPrevActionPerformed(evt);
+                resetForm();
+            }
+        });
+
+        btnNext.setText(">>");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (currentRow > 0){
+                    --currentRow;
+                    btnPrev.setEnabled(true);
+                } else {
+                    btnNext.setEnabled(false);
+                }
+                btnNextActionPerformed(evt);
+                resetForm();
             }
         });
 
@@ -119,29 +386,29 @@ public class JUtama extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfNotelp, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tfAsalsek, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jTextField3)
+                            .addComponent(tfTmpLahir)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfNobp, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tfNama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnNew)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(btnDelete)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -150,37 +417,37 @@ public class JUtama extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNobp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfTmpLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNotelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfAsalsek, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btnNew)
+                    .addComponent(btnEdit)
+                    .addComponent(btnDelete)
+                    .addComponent(btnPrev)
+                    .addComponent(btnNext))
                 .addGap(17, 17, 17))
         );
 
@@ -198,43 +465,63 @@ public class JUtama extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void resetForm() {
+        setTextNoBP();
+        setTextNama();
+        setTextTmpLahir();
+        setTextTgLahir();
+        setTextAsalSek();
+        setTextNoTelp();
+        setTextAlamat();
+    }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void tfNobpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNobpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_tfNobpActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        if (btnEdit.getText().equals("Ubah")){
+            //Atur input data
+            tfNobp.requestFocus();
+            setTextNoBP();
+            setTextNama();
+            setTextTmpLahir();
+            setTextTgLahir();
+            setTextNoTelp();
+            setTextAsalSek();
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+            btnEdit.setText("Simpan");
+            btnDelete.setText("Batal");
+            btnNew.setEnabled(false);
+            btnNext.setEnabled(false);
+            btnPrev.setEnabled(false);
+        } else {
+            getValue();
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+            btnEdit.setText("Ubah");
+            btnDelete.setText("Ubah");
+            btnNew.setEnabled(true);
+            btnNext.setEnabled(true);
+            btnPrev.setEnabled(true);
+        }
+    }
+
+    private void tfTmpLahirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTmpLahirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_tfTmpLahirActionPerformed
+
+    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPrevActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNextActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JUtama().setVisible(true);
-            }
-        });
-    }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -243,12 +530,26 @@ public class JUtama extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    // End of variables declaration//GEN-END:variables
+    private javax.swing.JTextField tfNama;
+    private javax.swing.JTextField tfTglLahir;
+    private JTextArea taAlamat;
+    private JTextField tfAsalsek;
+    private JTextField tfTmpLahir;
+    private JTextField tfNotelp;
+    private JTextField tfNobp;
+    private JButton btnPrev;
+    private JButton btnNew;
+    private JButton btnEdit;
+    private JButton btnNext;
+    private JButton btnDelete;
+
+
+
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new JUtama().setVisible(true);
+            }
+        });
+    }
 }

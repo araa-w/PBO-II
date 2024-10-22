@@ -1,10 +1,18 @@
-package AppDB;
-
-import java.security.spec.ECField;
-import java.sql.*;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package DbManagement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ *
+ * @author vvhal
+ */
 public class MahasiswaManager {
     Connection conn = null;
     Statement statm = null;
@@ -29,7 +37,7 @@ public class MahasiswaManager {
         try {
             resultSet = statm.executeQuery("select * from tabelmahasiswa");
             while (resultSet.next()) {
-                Mahasiswa Mhs = new Mahasiswa();
+                MahasiswaInput Mhs = new MahasiswaInput();
                 Mhs.setNoBp(resultSet.getString("NoBP"));
                 Mhs.setNama(resultSet.getString("Nama"));
                 Mhs.setTmpLahir(resultSet.getString("TempatLahir"));
@@ -37,7 +45,7 @@ public class MahasiswaManager {
                 Mhs.setAlamat(resultSet.getString("Alamat"));
                 Mhs.setPhone(resultSet.getString("NoTelp"));
                 Mhs.setAsalSekolah(resultSet.getString("AsalSekolah"));
-                Mahasiswa.add(Mhs);
+                MahasiswaInput.add(Mhs);
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -46,27 +54,19 @@ public class MahasiswaManager {
         return mahasiswa;
     }
 
-    public int Insert(Mahasiswa Mhs) {
+    public int Insert(MahasiswaInput Mhs){
         int result = 0;
-        String sql = "INSERT INTO tabelmahasiswa (NoBp, Nama, TmpLahir, TglLahir, Alamat, Phone, AsalSekolah) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, Mhs.getNoBp());
-            pstmt.setString(2, Mhs.getNama());
-            pstmt.setString(3, Mhs.getTmpLahir());
-            pstmt.setString(4, Mhs.getTglLahir());
-            pstmt.setString(5, Mhs.getAlamat());
-            pstmt.setString(6, Mhs.getPhone());
-            pstmt.setString(7, Mhs.getAsalSekolah());
-
-            result = pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error while inserting data: " + e.getMessage());
+        try {
+            result = statm.executeUpdate("insert into tabelmahasiswa values ('" + Mhs.getNoBp() +
+                    "', '" + Mhs.getNama() + "', '" + Mhs.getTmpLahir() + "', '" + Mhs.getTglLahir() +
+                    "', '" + Mhs.getAlamat() + "', '" + Mhs.getPhone() + "', '" + Mhs.getAsalSekolah() + "')");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return result;
     }
-    public int Delete(Mahasiswa Mhs){
+    public int Delete(MahasiswaInput Mhs){
         int result = 0;
         try{
             result = statm.executeUpdate("delete from tabelmahasiswa where NoBP = '" + Mhs.getNoBp()+"'");
@@ -76,7 +76,7 @@ public class MahasiswaManager {
         return result;
     }
 
-    public int Update(Mahasiswa Mhs){
+    public int Update(MahasiswaInput Mhs){
         int result = 0;
         try{
             result = statm.executeUpdate("update tabelmahasiswa set NoBp ="+ Mhs.getNoBp() +
